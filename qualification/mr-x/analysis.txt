@@ -1,0 +1,26 @@
+If the expression already evaluates to a constant value (“0” or “1”), then the
+answer is clearly 0.
+
+Otherwise, if the expression is a single term (“x” or “X”), then the answer is
+clearly 1.
+
+Otherwise, we’re left with the only non-trivial case — the expression is of the
+form “([expression][operator][expression])" and evaluates to a variable value
+(“x” or “X”). Each of the two sub-expressions surrounding the top-level operator
+evaluates to some value (“0”, “1”, “x”, or “X”). We can observe that, for any of
+the 16 possible pairs of values that these sub-expressions can have, there
+exists at least one operator which causes them to evaluate to a constant value:
+
+If one of them is “0” then “&” can be used
+Otherwise, if one of them is “1”, then “|” can be used
+Otherwise, both are variable values, and “^” can be used
+
+Therefore, given that we can just change the top-level operator accordingly, the
+answer in this case is always 1!
+
+As such, the whole problem has been reduced to determining whether the
+expression already evaluates to a constant value. This is equivalent to
+evaluating the expression twice, with x fixed first to 0 and then to 1, and
+checking whether the two resulting values are equal. This can be done in O(N)
+time in a number of fairly well-known ways, such as with a recursive descent
+parser or with the shunting-yard algorithm.
